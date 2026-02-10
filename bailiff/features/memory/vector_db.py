@@ -7,6 +7,8 @@ from chromadb.utils import embedding_functions
 logger = logging.getLogger("bailiff.memory.vector_db")
 
 class VectorMemory:
+    MAX_SEGMENT_LENGTH = 500  # max characters per segment in the context window
+
     def __init__(self, persist_path: str = "./chromadb"):
         self.client = chromadb.PersistentClient(persist_path)
         self.embedding_fn = embedding_functions.DefaultEmbeddingFunction()
@@ -17,7 +19,7 @@ class VectorMemory:
             embedding_function=self.embedding_fn
         )
 
-        self.context_window = deque(maxlen=3)
+        self.context_window = deque(maxlen=10)
         self.last_session_id = None
     
     def add_segment(self, session_id: str, segment: TranscriptionSegment):
@@ -28,14 +30,16 @@ class VectorMemory:
             self.context_window.clear()
             self.last_session_id = session_id
 
-        self.context_window.append(segment.text)
+        truncated_text = segment.text[:self.MAX_SEGMENT_LENGTH]
+        self.context_window.append(truncated_text)
         context_text = "\n".join(self.context_window)
 
-        doc_id = f"{session_id}_{segment.start_time:.2f}"
+        timestamp_ms = int(segment.start_time * 1000)
+        doc_id = f"{session_id}_{timestamp_ms}"
 
         logger.info(f"Adding segment '{segment.text}' to session '{session_id}'")
 
-        self.collection.add(
+        self.collection.upsert(
             documents=[context_text],
             metadatas=[{"session_id": session_id, "speaker": segment.speaker, "start_time": segment.start_time, "end_time": segment.end_time}],
             ids=[doc_id]
