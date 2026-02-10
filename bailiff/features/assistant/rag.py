@@ -1,20 +1,20 @@
 import logging
 
-from bailiff.features.assistant.memory_client import MemoryClient
 from bailiff.features.assistant.llm import LLMClient
+from bailiff.features.memory.vector_db import VectorMemory
 
 logger = logging.getLogger("bailiff.assistant.rag")
 
 class RagEngine:
-    def __init__(self, memory_client: MemoryClient, llm: LLMClient):
-        self.memory_client = memory_client
+    def __init__(self, llm: LLMClient, vector_db: VectorMemory):
         self.llm = llm
+        self.vector_db = vector_db
     
     def answer_question(self, question: str, session_id: str | None = None) -> str:
         """
         Answers a question using the RAG engine.
         """
-        results = self.memory_client.search(question, session_id)
+        results = self.vector_db.search(question, session_id)
         
         if not results:
             return "I don't have enough information to answer that question."

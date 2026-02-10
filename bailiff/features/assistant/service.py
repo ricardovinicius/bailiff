@@ -4,8 +4,8 @@ from multiprocessing.queues import Queue as ProcessQueue
 from dotenv import load_dotenv
 
 from bailiff.features.assistant.rag import RagEngine
-from bailiff.features.assistant.memory_client import MemoryClient
 from bailiff.features.assistant.llm import LLMClient
+from bailiff.features.memory.vector_db import VectorMemory
 
 logger = logging.getLogger("bailiff.assistant.service")
 
@@ -23,8 +23,8 @@ class AssistantService:
         self.answer_queue = answer_queue
         self.memory_queue = memory_queue
         self.rag_engine = None
-        self.memory_client = None
         self.llm = None
+        self.vector_db = None
         self.session_id = str(session_id) 
     
     def run(self):
@@ -41,9 +41,9 @@ class AssistantService:
             logger.error("OPENAI_API_KEY not found in environment variables.")
             return
 
-        self.memory_client = MemoryClient(self.memory_queue)
         self.llm = LLMClient(api_key=api_key, base_url=base_url, model=model)
-        self.rag_engine = RagEngine(memory_client=self.memory_client, llm=self.llm)
+        self.vector_db = VectorMemory()
+        self.rag_engine = RagEngine(llm=self.llm, vector_db=self.vector_db)
 
         while True:
             try:
