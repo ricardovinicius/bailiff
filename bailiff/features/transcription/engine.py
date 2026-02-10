@@ -7,13 +7,15 @@ logger = logging.getLogger("bailiff.transcription.engine")
 
 class WhisperEngine:
     def __init__(self, 
-                model_size: str = "distil-small.en", 
+                model_size: str = "small", 
                 device: str = "cpu",
                 compute_type: str = "int8",
+                language: str | None = None,
                 ):
         self.model_size = model_size
         self.device = device
         self.compute_type = compute_type
+        self.language = language
         self.model = None
 
     def load(self):
@@ -31,6 +33,7 @@ class WhisperEngine:
         segments, info = self.model.transcribe(
             audio,
             beam_size=5,
+            language=self.language,
             condition_on_previous_text=False,
         )
         

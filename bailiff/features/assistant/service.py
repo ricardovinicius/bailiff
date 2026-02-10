@@ -1,3 +1,4 @@
+from bailiff.core.logging import setup_logging
 import logging
 import os
 from multiprocessing.queues import Queue as ProcessQueue
@@ -17,11 +18,13 @@ class AssistantService:
         question_queue: ProcessQueue,
         answer_queue: ProcessQueue,
         memory_queue: ProcessQueue,
+        rag_queue: ProcessQueue,
         session_id: int
     ):
         self.question_queue = question_queue
         self.answer_queue = answer_queue
         self.memory_queue = memory_queue
+        self.rag_queue = rag_queue
         self.rag_engine = None
         self.llm = None
         self.vector_db = None
@@ -42,8 +45,7 @@ class AssistantService:
             return
 
         self.llm = LLMClient(api_key=api_key, base_url=base_url, model=model)
-        self.vector_db = VectorMemory()
-        self.rag_engine = RagEngine(llm=self.llm, vector_db=self.vector_db)
+        self.rag_engine = RagEngine(llm=self.llm, memory_queue=self.memory_queue, rag_queue=self.rag_queue)
 
         while True:
             try:
@@ -67,7 +69,8 @@ class AssistantService:
                 logger.error("Error answering question: %s", e)
                 continue
 
-def run_assistant_service(question_queue: ProcessQueue, answer_queue: ProcessQueue, memory_queue: ProcessQueue, session_id: int):
-    service = AssistantService(question_queue, answer_queue, memory_queue, session_id)
+def run_assistant_service(question_queue: ProcessQueue, answer_queue: ProcessQueue, memory_queue: ProcessQueue, rag_queue: ProcessQueue, session_id: int, log_file: str):
+    setup_logging(log_file=log_file)
+    service = AssistantService(question_queue, answer_queue, memory_queue, rag_queue, session_id)
     service.run()         
         

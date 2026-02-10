@@ -51,6 +51,7 @@ class BailiffApp(App):
         self.q_memory = multiprocessing.Queue()
         self.q_question = multiprocessing.Queue()
         self.q_answer = multiprocessing.Queue()
+        self.q_rag = multiprocessing.Queue()
 
         # Create session
         db = SessionLocal()
@@ -73,13 +74,13 @@ class BailiffApp(App):
         )
         self.p_memory = multiprocessing.Process(
             target=run_memory_service,
-            args=(self.q_memory, self.session_id),
+            args=(self.q_memory, self.q_rag, self.session_id, LOG_FILE),
             daemon=True,
             name="memory",
         )
         self.p_assistant = multiprocessing.Process(
             target=run_assistant_service,
-            args=(self.q_question, self.q_answer, self.q_memory, self.session_id),
+            args=(self.q_question, self.q_answer, self.q_memory, self.q_rag, self.session_id, LOG_FILE),
             daemon=True,
             name="assistant",
         )

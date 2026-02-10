@@ -31,7 +31,4 @@ class SearchRequest:
     """
     query: str
     session_id: str
-    reply_queue: object # multiprocessing.Queue
     k: int = 5
-
-    

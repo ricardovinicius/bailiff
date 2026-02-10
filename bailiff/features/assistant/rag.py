@@ -1,20 +1,32 @@
+from multiprocessing.queues import Queue as ProcessQueue
 import logging
 
 from bailiff.features.assistant.llm import LLMClient
-from bailiff.features.memory.vector_db import VectorMemory
+from bailiff.core.events import SearchRequest
 
 logger = logging.getLogger("bailiff.assistant.rag")
 
 class RagEngine:
-    def __init__(self, llm: LLMClient, vector_db: VectorMemory):
+    def __init__(self, llm: LLMClient, memory_queue: ProcessQueue, rag_queue: ProcessQueue):
         self.llm = llm
-        self.vector_db = vector_db
+        self.memory_queue = memory_queue
+        self.rag_queue = rag_queue
     
     def answer_question(self, question: str, session_id: str | None = None) -> str:
         """
         Answers a question using the RAG engine.
         """
-        results = self.vector_db.search(question, session_id)
+        target_session = session_id
+
+        # Send search request to MemoryService and wait for the reply
+        request = SearchRequest(query=question, session_id=target_session)
+        self.memory_queue.put(request)
+
+        try:
+            results = self.rag_queue.get(timeout=30)
+        except Exception:
+            logger.error("Timed out waiting for search results from MemoryService")
+            return "I'm having trouble searching meeting context right now."
         
         if not results:
             return "I don't have enough information to answer that question."
