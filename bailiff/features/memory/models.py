@@ -1,0 +1,30 @@
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float
+from sqlalchemy.orm import relationship, declarative_base
+
+Base = declarative_base()
+
+class Sessions(Base):
+    __tablename__ = "sessions"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    start_time = Column(DateTime)
+    end_time = Column(DateTime)
+    
+    transcripts = relationship("Transcripts", back_populates="session", cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<Session(id={self.id}, name='{self.name}')>"
+
+class Transcripts(Base):
+    __tablename__ = "transcripts"
+    id = Column(Integer, primary_key=True)
+    session_id = Column(Integer, ForeignKey("sessions.id"))
+    text = Column(String)
+    start_time = Column(Float) # changed from DateTime to Float to match audio timestamps
+    end_time = Column(Float)   # changed from DateTime to Float
+    speaker = Column(String)
+    
+    session = relationship("Sessions", back_populates="transcripts")
+
+    def __repr__(self):
+        return f"<Transcript(id={self.id}, text='{self.text[:20]}...')>"

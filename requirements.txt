@@ -1,2 +1,10 @@
-soundcard
+pyaudiowpatch
 numpy
+scipy
+torch
+torchaudio
+packaging
+faster-whisper
+textual
+sqlalchemy
+chromadb
