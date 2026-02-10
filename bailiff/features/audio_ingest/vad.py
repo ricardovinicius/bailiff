@@ -8,7 +8,7 @@ logger = logging.getLogger("bailiff.audio.vad")
 
 class VADEngine:
     def __init__(self, model_name: str = "snakers4/silero-vad", 
-                 threshold: float = 0.5, 
+                 threshold: float = 0.6, 
                  sample_rate: int = 16000):
         self.model, self.utils = torch.hub.load(model_name, 
                                                 model='silero_vad', 

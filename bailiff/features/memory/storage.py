@@ -47,3 +47,7 @@ class MeetingStorage:
 
     def get_transcripts(self, session_id: int):
         return self.db.query(Transcripts).filter(Transcripts.session_id == session_id).order_by(Transcripts.start_time).all()
+
+    def get_session(self, session_id: int) -> Sessions | None:
+        """Get a session by ID."""
+        return self.db.query(Sessions).filter(Sessions.id == session_id).first()

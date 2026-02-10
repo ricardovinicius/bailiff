@@ -24,4 +24,14 @@ class TranscriptionSegment:
     speaker: str = "unknown"
     is_final: bool = True
 
+@dataclass
+class SearchRequest:
+    """
+    Request to search the vector database.
+    """
+    query: str
+    session_id: str
+    reply_queue: object # multiprocessing.Queue
+    k: int = 5
+
     

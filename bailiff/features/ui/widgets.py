@@ -5,12 +5,29 @@ from bailiff.core.events import TranscriptionSegment
 
 
 class TranscriptItem(Static):
-    def __init__(self, segment: TranscriptionSegment, **kwargs):
-        super().__init__(segment.text, **kwargs)
-        self.segment = segment
+    def __init__(self, content: TranscriptionSegment | str, role: str = "user", **kwargs):
+        if isinstance(content, TranscriptionSegment):
+            self.segment = content
+            self.text_content = content.text
+            self.role = "user" # default for segments
+        else:
+            self.segment = None
+            self.text_content = content
+            self.role = role
+            
+        super().__init__(**kwargs)
     
     def render(self) -> Text:
-       return Text.assemble(
-           (f"[{self.segment.start_time:.1f}s - {self.segment.end_time:.1f}s] ", "dim"),
-           self.segment.text,
-       )
+        if self.segment:
+           return Text.assemble(
+               (f"[{self.segment.start_time:.1f}s - {self.segment.end_time:.1f}s] ", "dim"),
+               self.text_content,
+           )
+        else:
+            # Format for Q&A
+            prefix = "[You] " if self.role == "user" else "[Assistant] "
+            color = "green" if self.role == "user" else "blue"
+            return Text.assemble(
+                (prefix, f"bold {color}"),
+                self.text_content
+            )

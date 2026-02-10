@@ -1,6 +1,10 @@
+from collections import deque
+import logging
 from bailiff.core.events import TranscriptionSegment
 import chromadb
 from chromadb.utils import embedding_functions 
+
+logger = logging.getLogger("bailiff.memory.vector_db")
 
 class VectorMemory:
     def __init__(self, persist_path: str = "./chromadb"):
@@ -12,18 +16,32 @@ class VectorMemory:
             name="meeting_context", 
             embedding_function=self.embedding_fn
         )
+
+        self.context_window = deque(maxlen=3)
+        self.last_session_id = None
     
     def add_segment(self, session_id: str, segment: TranscriptionSegment):
         """
         Embeds and stores the given transcription segment in the vector database.
         """
+        if self.last_session_id != session_id:
+            self.context_window.clear()
+            self.last_session_id = session_id
+
+        self.context_window.append(segment.text)
+        context_text = "\n".join(self.context_window)
+
         doc_id = f"{session_id}_{segment.start_time:.2f}"
 
+        logger.info(f"Adding segment '{segment.text}' to session '{session_id}'")
+
         self.collection.add(
-            documents=[segment.text],
+            documents=[context_text],
             metadatas=[{"session_id": session_id, "speaker": segment.speaker, "start_time": segment.start_time, "end_time": segment.end_time}],
             ids=[doc_id]
         )
+
+        logger.info(f"Added segment '{segment.text}' to session '{session_id}' with ID '{doc_id}'")
 
         return doc_id
     
@@ -31,6 +49,8 @@ class VectorMemory:
         """
         Searches for the most similar documents to the given query.
         """
+        logger.info(f"Searching for '{query}' in session '{session_id}'")
+
         where = {"session_id": session_id} if session_id else None
         
         results = self.collection.query(
@@ -38,6 +58,8 @@ class VectorMemory:
             n_results=k,
             where=where
         )
+
+        logger.info(f"Found {len(results['documents'][0])} results")
 
         return results['documents'][0]
     

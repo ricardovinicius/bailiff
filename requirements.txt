@@ -8,3 +8,6 @@ faster-whisper
 textual
 sqlalchemy
 chromadb
+instructor
+pydantic
+openai
