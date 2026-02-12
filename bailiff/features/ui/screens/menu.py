@@ -1,5 +1,6 @@
 from bailiff.features.audio_ingest.capture import AudioCaptureManager
 from bailiff.features.ui.screens.execution import ExecutionScreen
+from bailiff.features.ui.screens.list_meetings import ListMeetingsScreen
 from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.widgets import Header, Footer, Button, Static, Label
@@ -101,7 +102,7 @@ class MenuScreen(Screen):
             # Buttons Area
             with Horizontal(id="buttons-area"):
                 yield Button("New Meeting", id="btn-new", variant="primary")
-                yield Button("List Meetings", id="btn-list", disabled=True)
+                yield Button("List Meetings", id="btn-list")
                 yield Button("Settings", id="btn-settings", disabled=True)
                 yield Button("Exit", id="btn-exit", variant="error")
 
@@ -159,5 +160,7 @@ class MenuScreen(Screen):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "btn-new":
             self.app.push_screen(ExecutionScreen())
+        elif event.button.id == "btn-list":
+            self.app.push_screen(ListMeetingsScreen())
         elif event.button.id == "btn-exit":
             self.app.exit()
