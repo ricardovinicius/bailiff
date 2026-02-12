@@ -1,12 +1,13 @@
 from textual.screen import Screen
 from textual.app import ComposeResult
-from textual.widgets import Header, Footer, Label
-from textual.containers import Container, VerticalScroll
+from textual.widgets import Header, Footer, Label, Button
+from textual.containers import Container, VerticalScroll, Horizontal
 
 from bailiff.core.events import TranscriptionSegment
 from bailiff.core.db import SessionLocal
 from bailiff.features.memory.storage import MeetingStorage
 from bailiff.features.ui.widgets import TranscriptItem
+from bailiff.features.analysis.exporter import Exporter
 
 class TranscriptionScreen(Screen):
     CSS = """
@@ -34,6 +35,20 @@ class TranscriptionScreen(Screen):
         height: 1fr;
         width: 100%;
         overflow-y: scroll;
+        margin-bottom: 1;
+    }
+
+    #buttons-container {
+        height: auto;
+        dock: bottom;
+        align: center middle;
+        padding: 1;
+    }
+
+    Button {
+        height: 1;
+        min-width: 10;
+        border: none;
     }
     """
 
@@ -48,7 +63,12 @@ class TranscriptionScreen(Screen):
         yield Header()
         with Container(id="transcript-container"):
             yield Label("Loading...", id="session-title")
-            yield VerticalScroll(id="transcript-scroll")
+            with VerticalScroll(id="transcript-scroll"):
+                pass # Items will be mounted here
+            
+            with Container(id="buttons-container"):
+                 yield Button("Export", id="btn-export", variant="success")
+
         yield Footer()
 
     def on_mount(self) -> None:
@@ -78,4 +98,18 @@ class TranscriptionScreen(Screen):
                 )
                 item = TranscriptItem(segment)
                 scroll_view.mount(item)
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "btn-export":
+            self.export_transcript()
+
+    def export_transcript(self) -> None:
+        try:
+            with SessionLocal() as db:
+                storage = MeetingStorage(db=db)
+                exporter = Exporter(self.session_id, "exports", storage)
+                filename = exporter.raw_export()
+                self.notify(f"Exported to {filename}", title="Success", severity="information")
+        except Exception as e:
+            self.notify(f"Export failed: {str(e)}", title="Error", severity="error")
 
