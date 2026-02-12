@@ -1,0 +1,9 @@
+- Give last messages to context of RAG
+- Update to instant diarization engine
+- Add a feature to set the labels for speakers in the UI
+- Add a feature to set the language for transcription in the UI
+- Stop the application when a error occurs
+- Make the diarization engine with a hybrid approach, with offline refiniment, using the Agglomerative Hierarchical Clustering algorithm
+- I could also remove, or cluster the speakers that dont have a lot of audio
+- Implement fallback for CUDA not available, use a small model for CPU inference
+- Maybe, use some AGC to normalize the audio

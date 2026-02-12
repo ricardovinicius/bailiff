@@ -21,6 +21,7 @@ class TranscriptItem(Static):
         if self.segment:
            return Text.assemble(
                (f"[{self.segment.start_time:.1f}s - {self.segment.end_time:.1f}s] ", "dim"),
+               (f"[{self.segment.speaker}] ", "bold magenta"),
                self.text_content,
            )
         else:

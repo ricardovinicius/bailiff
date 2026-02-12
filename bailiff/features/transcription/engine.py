@@ -7,9 +7,9 @@ logger = logging.getLogger("bailiff.transcription.engine")
 
 class WhisperEngine:
     def __init__(self, 
-                model_size: str = "small", 
-                device: str = "cpu",
-                compute_type: str = "int8",
+                model_size: str = "deepdml/faster-whisper-large-v3-turbo-ct2", 
+                device: str = "cuda",
+                compute_type: str = "float16",
                 language: str | None = None,
                 ):
         self.model_size = model_size

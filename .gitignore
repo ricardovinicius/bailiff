@@ -221,3 +221,4 @@ chromadb/
 
 # Log files
 *.log
+models/

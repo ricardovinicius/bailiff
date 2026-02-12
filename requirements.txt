@@ -2,7 +2,7 @@ pyaudiowpatch
 numpy
 scipy
 torch
-torchaudio
+torchaudio<2.9
 packaging
 faster-whisper
 textual
@@ -11,3 +11,4 @@ chromadb
 instructor
 pydantic
 openai
+speechbrain

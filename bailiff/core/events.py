@@ -32,3 +32,10 @@ class SearchRequest:
     query: str
     session_id: str
     k: int = 5
+
+@dataclass
+class DiarizationResult:
+    speaker: str
+    start_time: float
+    end_time: float
+

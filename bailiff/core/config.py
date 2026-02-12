@@ -8,5 +8,5 @@ class AudioConfig:
     chunk_size: int = 512
     vad_threshold: float = 0.5
     vad_model_name: str = "snakers4/silero-vad"
-    silence_limit: float = 0.5 # seconds
+    silence_limit: float = 1.0 # seconds
     speech_pad_ms: int = 200 # ms

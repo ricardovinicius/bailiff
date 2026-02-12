@@ -14,9 +14,17 @@ def setup_logging(level: int = logging.DEBUG, log_file: str | None = None) -> No
         return
 
     logger.setLevel(level)
+    logger.propagate = False
 
     if log_file:
         handler = logging.FileHandler(log_file)
+
+        # Redirect root logger to the file too, so third-party libraries
+        # (pyannote, speechbrain, diart, etc.) don't leak to the console.
+        root = logging.getLogger()
+        root.handlers.clear()
+        root.addHandler(handler)
+        root.setLevel(logging.WARNING)  # only warnings+ from third-party
     else:
         handler = logging.StreamHandler(sys.stdout)
     handler.setLevel(level)

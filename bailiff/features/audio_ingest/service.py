@@ -14,6 +14,7 @@ from bailiff.core.events import AudioChunk
 from bailiff.core.logging import setup_logging
 from bailiff.features.audio_ingest.capture import AudioCaptureManager
 from bailiff.features.audio_ingest.vad import VADEngine
+from bailiff.features.audio_ingest.preprocessor import AudioPreprocessor
 
 logger = logging.getLogger("bailiff.audio.service")
 
@@ -47,13 +48,20 @@ class AudioIngestService:
             return
 
         needs_resample = (source_rate and target_rate and source_rate != target_rate)
+        
+        # Initialize Preprocessor (High-pass filter)
+        # Use target_rate if available (resampling happens first), otherwise source_rate (or config default)
+        # Note: We process *after* resampling, so we should always use the target sample rate of the processing pipeline
+        # if we are resampling to it.
+        effective_rate = target_rate if target_rate else (source_rate if source_rate else self.config.sample_rate)
+        preprocessor = AudioPreprocessor(sample_rate=effective_rate)
 
         # Read size matches the stream's frames_per_buffer (may differ from chunk_size for loopback)
         read_size = stream._frames_per_buffer
 
         worker_log.info("Started: channels=%d, read_size=%d, source_rate=%s, "
-                        "target_rate=%s, resample=%s",
-                        channels, read_size, source_rate, target_rate, needs_resample)
+                        "target_rate=%s, resample=%s, effective_rate=%d",
+                        channels, read_size, source_rate, target_rate, needs_resample, effective_rate)
 
         chunk_count = 0
         try:
@@ -69,6 +77,9 @@ class AudioIngestService:
                     # Resample to target rate and exact chunk_size
                     if needs_resample:
                         data = resample(data, self.config.chunk_size).astype(np.float32)
+                        
+                    # Apply Preprocessing (High-pass filter)
+                    data = preprocessor.process(data)
 
                     chunk_count += 1
                     if chunk_count % 100 == 1:

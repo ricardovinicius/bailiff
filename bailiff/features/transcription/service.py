@@ -9,11 +9,13 @@ from bailiff.core.events import AudioChunk
 
 logger = logging.getLogger("bailiff.transcription.service")
 
+# TODO: Add a hallucination detection mechanism to avoid non-sense transcriptions, such as "Subtitles by "
+
 class TranscriptionService:
     def __init__(self, 
                  input_queue: ProcessQueue, 
                  output_queue: ProcessQueue, 
-                 engine_factory: Callable[[], WhisperEngine] = lambda: WhisperEngine()):
+                 engine_factory: Callable[[], WhisperEngine] = lambda: WhisperEngine(language="pt")):
         self.input_queue = input_queue
         self.output_queue = output_queue
         self.engine_factory = engine_factory
