@@ -1,37 +1,32 @@
 import logging
 import sys
-
+from textual.logging import TextualHandler
 
 def setup_logging(level: int = logging.DEBUG, log_file: str | None = None) -> None:
     """
-    Configure the root bailiff logger.
-    If *log_file* is given, logs go to that file; otherwise to stdout.
-    Call once at application startup.
+    Configure the logging system.
+    Silences third-party libraries and redirects logs safely to avoid TUI corruption.
     """
-    logger = logging.getLogger("bailiff")
-
-    if logger.handlers:
-        return
-
-    logger.setLevel(level)
-    logger.propagate = False
-
     if log_file:
         handler = logging.FileHandler(log_file)
-
-        # Redirect root logger to the file too, so third-party libraries
-        # (pyannote, speechbrain, diart, etc.) don't leak to the console.
-        root = logging.getLogger()
-        root.handlers.clear()
-        root.addHandler(handler)
-        root.setLevel(logging.WARNING)  # only warnings+ from third-party
     else:
-        handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(level)
+        handler = TextualHandler()
 
     formatter = logging.Formatter(
         fmt="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
         datefmt="%H:%M:%S",
     )
     handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    handler.setLevel(level)
+
+    bailiff_logger = logging.getLogger("bailiff")
+    bailiff_logger.setLevel(level)
+    bailiff_logger.propagate = False  
+    
+    if not bailiff_logger.handlers:
+        bailiff_logger.addHandler(handler)
+
+    root = logging.getLogger()
+    root.handlers.clear()       
+    root.addHandler(handler)    
+    root.setLevel(logging.WARNING) 

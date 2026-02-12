@@ -15,7 +15,7 @@ class TranscriptionService:
     def __init__(self, 
                  input_queue: ProcessQueue, 
                  output_queue: ProcessQueue, 
-                 engine_factory: Callable[[], WhisperEngine] = lambda: WhisperEngine(language="pt")):
+                 engine_factory: Callable[[], WhisperEngine] = lambda: WhisperEngine(language=None)):
         self.input_queue = input_queue
         self.output_queue = output_queue
         self.engine_factory = engine_factory

@@ -1,5 +1,4 @@
 - Give last messages to context of RAG
-- Update to instant diarization engine
 - Add a feature to set the labels for speakers in the UI
 - Add a feature to set the language for transcription in the UI
 - Stop the application when a error occurs
@@ -7,3 +6,5 @@
 - I could also remove, or cluster the speakers that dont have a lot of audio
 - Implement fallback for CUDA not available, use a small model for CPU inference
 - Maybe, use some AGC to normalize the audio
+- Handle better the errors of audio ingestion, when i remove the main speaker pollutes the log with infinite errors
+- Improve the vetorial metadata for diarization, add the speaker id to the metadata, that translates to a speaker label in the UI and the speaker name in the RAG. Do this in a way that i can update the speaker id when i clusterize the speakers in the AHC
