@@ -6,6 +6,8 @@ from chromadb.utils import embedding_functions
 
 logger = logging.getLogger("bailiff.memory.vector_db")
 
+# TODO: Improve the search, to avoid duplication of context, giving more variability.
+
 class VectorMemory:
     MAX_SEGMENT_LENGTH = 500  # max characters per segment in the context window
 

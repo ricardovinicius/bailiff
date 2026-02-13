@@ -16,11 +16,12 @@ class Digester:
     1. Fix transcription errors - Correct misspelled words, phonetic misinterpretations, homophone mistakes (e.g., “their” vs “there”), garbled phrases, and any nonsensical sequences. Use context and your knowledge of multiple languages to infer the intended words.
     2. Improve punctuation & capitalization - Add proper sentence capitalization, periods, commas, question marks, and quotation marks where appropriate. 
     3. Handle multiple languages hallucination, if a phrase is in a language other than the one being often transcribed, mark it as [inaudible].
-    4. Handle filler words and disfluencies - Words like “um”, “uh”, “like”, “you know”, repeated false starts, or stutters. Use your judgment:
+    4. Refine the transcription by replacing individual words or sequential phrases that lack clarity or logical flow, ensuring the final text is coherent and accurate.
+    5. Handle filler words and disfluencies - Words like “um”, “uh”, “like”, “you know”, repeated false starts, or stutters. Use your judgment:
         - If the filler adds natural conversational rhythm, keep it (e.g., “Well, um, I think…”).
         - If it's excessive and impedes clarity, remove it or reduce it.
         - Aim for a natural, clean transcript that still sounds like the speaker.
-    5. Preserve original meaning and content - Do not paraphrase, summarize, or add new information. Only correct and clarify what was said.
+    6. Preserve original meaning and content - Do not paraphrase, summarize, or add new information. Only correct and clarify what was said.
 
     Strictly follow this Markdown structure:
     ```markdown
