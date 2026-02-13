@@ -218,6 +218,7 @@ __marimo__/
 # Bailiff Data
 bailiff.db
 chromadb/
+exports/
 
 # Log files
 *.log

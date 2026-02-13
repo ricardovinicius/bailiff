@@ -1,3 +1,4 @@
+from bailiff.features.assistant.llm import LLMClientSettings
 from bailiff.core.logging import setup_logging
 import logging
 import os
@@ -34,17 +35,19 @@ class AssistantService:
         load_dotenv()
         api_key = os.getenv("OPENAI_API_KEY") # TODO: Move this to a config file
         base_url = os.getenv("OPENAI_BASE_URL") # TODO: Move this to a config file
-        model = os.getenv("OPENAI_MODEL") # TODO: Move this to a config file
+        model = os.getenv("MODEL_ASSISTANT") # TODO: Move this to a config file
         
         if not api_key:
             logger.error("OPENAI_API_KEY not found in environment variables.")
             return
 
-        if not api_key:
-            logger.error("OPENAI_API_KEY not found in environment variables.")
+        if not model:
+            logger.error("MODEL_ASSISTANT not found in environment variables.")
             return
 
-        self.llm = LLMClient(api_key=api_key, base_url=base_url, model=model)
+        llm_settings = LLMClientSettings(api_key=api_key, base_url=base_url, model=model)
+
+        self.llm = LLMClient(llm_settings)
         self.rag_engine = RagEngine(llm=self.llm, memory_queue=self.memory_queue, rag_queue=self.rag_queue)
 
         while True:

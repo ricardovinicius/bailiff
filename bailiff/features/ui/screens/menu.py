@@ -28,10 +28,10 @@ class MenuScreen(Screen):
 
     #title {
         align: center middle;
-        padding: 1 2;
+        padding: 1 2 0 2;
         width: 100%;
         height: auto;
-        margin-bottom: 1; /* Reduced bottom margin */
+        margin-bottom: 0;
     }
     
     .title-text {
@@ -43,7 +43,7 @@ class MenuScreen(Screen):
         layout: horizontal;
         align: center middle;
         height: auto;
-        margin-bottom: 1; /* Reduced bottom margin */
+        margin-bottom: 0; 
         width: 100%;
     }
 
