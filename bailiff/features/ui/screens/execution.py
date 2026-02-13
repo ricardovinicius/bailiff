@@ -158,7 +158,7 @@ class ExecutionScreen(Screen):
         del self.session_manager
         
         # Navigate to transcription screen
-        self.app.push_screen(TranscriptionScreen(session_id))
+        self.app.switch_screen(TranscriptionScreen(session_id))
 
     def on_unmount(self):
         """

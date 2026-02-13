@@ -62,7 +62,6 @@ class TranscriptionScreen(Screen):
         self.session_id = session_id
         self.session_name = "Unknown Session"
 
-    # FIXME: If leave the transcription of a finished session, it get back to the execution screen instead of the session list screen
     BINDINGS = [("escape", "app.pop_screen", "Back")]
 
     def compose(self) -> ComposeResult:
