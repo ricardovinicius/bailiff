@@ -10,12 +10,13 @@ from bailiff.features.ui.widgets import TranscriptItem
 from bailiff.core.logging import setup_logging
 from bailiff.core.session import SessionManager
 from bailiff.features.ui.screens.transcription import TranscriptionScreen
+from bailiff.core.config import settings
 
 
-LOG_FILE = "bailiff.log"
+# TODO: Add VU meter
 
 # Configure main-process logging to file so it doesn't corrupt the TUI
-setup_logging(log_file=LOG_FILE)
+setup_logging(log_file=settings.app.log_file)
 logger = logging.getLogger("bailiff.ui.screens.execution")
 
 class ExecutionScreen(Screen):
@@ -64,7 +65,7 @@ class ExecutionScreen(Screen):
         """
         Initialize Backend and UI
         """
-        self.session_manager = SessionManager(log_file=LOG_FILE)
+        self.session_manager = SessionManager(log_file=settings.app.log_file)
         self.session_manager.start()
 
         self.run_worker(self.monitor_transcription, thread=True)

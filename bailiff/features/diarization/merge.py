@@ -6,6 +6,8 @@ import time
 from bailiff.core.events import DiarizationResult
 
 
+# TODO: Add support for labeling speakers
+
 logger = logging.getLogger("bailiff.features.diarization.merge")
 
 class MergeService:
@@ -85,6 +87,14 @@ class MergeService:
 
 def run_merge_service(tx_queue, diar_queue, output_queue, log_file: str | None = None):
     from bailiff.core.logging import setup_logging
+    from bailiff.core.config import settings
+    
     setup_logging(log_file=log_file)
-    service = MergeService(tx_queue, diar_queue, output_queue)
+    service = MergeService(
+        tx_queue, 
+        diar_queue, 
+        output_queue,
+        merge_timeout=settings.diarization.merge_timeout,
+        segment_timeout=settings.diarization.segment_timeout
+    )
     service.run()

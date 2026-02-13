@@ -1,6 +1,8 @@
 from textual.app import App
 from bailiff.features.ui.screens.menu import MenuScreen
 
+from bailiff.core.config import settings
+
 class BailiffApp(App):
     CSS_PATH = None # or path to global css if valid
 

@@ -1,0 +1,25 @@
+app:
+  log_file: "bailiff.log"
+  log_level: "INFO"
+  data_dir: "data"
+
+audio:
+  sample_rate: 16000
+  chunk_size: 512
+  vad_threshold: 0.5
+  silence_limit: 1.0
+  speech_pad_ms: 200
+
+models:
+  llm_provider: "ollama"
+  llm_base_url: "http://localhost:11434/v1"
+  llm_assistant: "llama3.2"
+  llm_digestion: "llama3.2"
+  llm_summary: "llama3.2"
+  voice_embedding: "speechbrain/spkrec-ecapa-voxceleb"
+
+diarization:
+  threshold: 0.5
+  inertia_weight: 0.1
+  merge_timeout: 8.0
+  segment_timeout: 3.0

@@ -68,13 +68,11 @@ if __name__ == "__main__":
     from bailiff.features.memory.storage import MeetingStorage
     from bailiff.features.assistant.llm import LLMClient
     from bailiff.core.db import SessionLocal
-    from dotenv import load_dotenv
-    import os
+    from bailiff.core.config import settings
 
-    load_dotenv()
-    api_key = os.getenv("OPENAI_API_KEY") # TODO: Move this to a config file
-    base_url = os.getenv("OPENAI_BASE_URL") # TODO: Move this to a config file
-    digestion_model = os.getenv("MODEL_DIGESTION") # TODO: Move this to a config file
+    api_key = settings.models.llm_api_key.get_secret_value() if settings.models.llm_api_key else None
+    base_url = settings.models.llm_base_url
+    digestion_model = settings.models.llm_digestion
 
     logging.basicConfig(level=logging.INFO)
     

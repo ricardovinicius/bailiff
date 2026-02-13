@@ -136,16 +136,13 @@ class TranscriptionScreen(Screen):
 
     def _export_worker(self, mode: str):
         try:
-            # Load env vars for LLM
-            import os
-            from dotenv import load_dotenv
-            load_dotenv()
+            from bailiff.core.config import settings
             
-            api_key = os.getenv("OPENAI_API_KEY")
-            base_url = os.getenv("OPENAI_BASE_URL")
+            api_key = settings.models.llm_api_key.get_secret_value() if settings.models.llm_api_key else None
+            base_url = settings.models.llm_base_url
             
-            model_digestion = os.getenv("MODEL_DIGESTION", "gpt-4o-mini")
-            model_summary = os.getenv("MODEL_SUMMARY", "gpt-4o-mini")
+            model_digestion = settings.models.llm_digestion
+            model_summary = settings.models.llm_summary
 
             with SessionLocal() as db:
                 storage = MeetingStorage(db=db)

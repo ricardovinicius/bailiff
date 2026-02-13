@@ -32,17 +32,18 @@ class AssistantService:
         self.session_id = str(session_id) 
     
     def run(self):
-        load_dotenv()
-        api_key = os.getenv("OPENAI_API_KEY") # TODO: Move this to a config file
-        base_url = os.getenv("OPENAI_BASE_URL") # TODO: Move this to a config file
-        model = os.getenv("MODEL_ASSISTANT") # TODO: Move this to a config file
+        from bailiff.core.config import settings
         
-        if not api_key:
-            logger.error("OPENAI_API_KEY not found in environment variables.")
-            return
+        api_key = settings.models.llm_api_key.get_secret_value() if settings.models.llm_api_key else None
+        base_url = settings.models.llm_base_url
+        model = settings.models.llm_assistant
+        
+        if not api_key and settings.models.llm_provider != "ollama":
+            logger.warning("LLM API Key not found in configuration, but might not be needed for local models.")
+            # return # Don't return, let it fail downstream if needed or work if it's local
 
         if not model:
-            logger.error("MODEL_ASSISTANT not found in environment variables.")
+            logger.error("LLM Model not configured.")
             return
 
         llm_settings = LLMClientSettings(api_key=api_key, base_url=base_url, model=model)

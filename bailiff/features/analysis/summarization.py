@@ -1,5 +1,8 @@
 from bailiff.features.assistant.llm import LLMClient
 
+# TODO: Add support for metadata extraction
+# TODO: Add support for export in JSON schema
+
 class Summarizer:
     SUMMARIZATION_PROMPT = """
     You are an Elite Executive Assistant specializing in technical and business strategy.

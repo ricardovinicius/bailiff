@@ -12,3 +12,6 @@ instructor
 pydantic
 openai
 speechbrain
+pydantic
+pydantic-settings
+pyyaml
