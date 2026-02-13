@@ -9,3 +9,5 @@
 - Handle better the errors of audio ingestion, when i remove the main speaker pollutes the log with infinite errors
 - Improve the vetorial metadata for diarization, add the speaker id to the metadata, that translates to a speaker label in the UI and the speaker name in the RAG. Do this in a way that i can update the speaker id when i clusterize the speakers in the AHC
 - Is a known bug the prints of libraries warnings over the TUI
+- Add support for linux, with dynamic support of pyaudiowpatch
+- Update README.md with roadmap and screenshots
