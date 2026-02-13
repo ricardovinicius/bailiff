@@ -5,11 +5,13 @@ from faster_whisper import WhisperModel
 
 logger = logging.getLogger("bailiff.transcription.engine")
 
+from bailiff.core.config import settings
+
 class WhisperEngine:
     def __init__(self, 
-                model_size: str = "deepdml/faster-whisper-large-v3-turbo-ct2", 
-                device: str = "cuda",
-                compute_type: str = "float16",
+                model_size: str = settings.transcription.model_size, 
+                device: str = settings.transcription.device,
+                compute_type: str = settings.transcription.compute_type,
                 language: str | None = None,
                 ):
         self.model_size = model_size

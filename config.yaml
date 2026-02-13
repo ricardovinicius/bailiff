@@ -23,3 +23,8 @@ diarization:
   inertia_weight: 0.1
   merge_timeout: 8.0
   segment_timeout: 3.0
+
+transcription:
+  model_size: "small" # For GPU i recommend "deepdml/faster-whisper-large-v3-turbo-ct2" 
+  device: "cpu" # For GPU i recommend "cuda" 
+  compute_type: "int8" # For GPU i recommend "float16"

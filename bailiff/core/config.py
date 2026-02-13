@@ -31,6 +31,11 @@ class DiarizationConfig(BaseSettings):
     merge_timeout: float = 8.0
     segment_timeout: float = 3.0
 
+class TranscriptionConfig(BaseSettings):
+    model_size: str = "deepdml/faster-whisper-large-v3-turbo-ct2"
+    device: str = "cuda"
+    compute_type: str = "float16"
+
 from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, YamlConfigSettingsSource
 
 class Settings(BaseSettings):
@@ -38,6 +43,7 @@ class Settings(BaseSettings):
     audio: AudioConfig
     models: ModelsConfig
     diarization: DiarizationConfig
+    transcription: TranscriptionConfig
 
     class Config:
         env_prefix = "BAILIFF_"
