@@ -103,6 +103,15 @@ Bailiff uses a multiprocessing pipeline architecture:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+## References
+
+A special thanks to the following projects:
+- SpeechBrain: https://github.com/speechbrain/speechbrain
+- Faster Whisper: https://github.com/SYSTRAN/faster-whisper
+- Silero VAD: https://github.com/snakers4/silero-vad
+
+And to every other Open Source project that i used in this project.
+
 ## 📄 License
 
 [MIT](https://choosealicense.com/licenses/mit/)

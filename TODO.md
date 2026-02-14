@@ -4,7 +4,6 @@
 - Stop the application when a error occurs
 - Make the diarization engine with a hybrid approach, with offline refiniment, using the Agglomerative Hierarchical Clustering algorithm
 - I could also remove, or cluster the speakers that dont have a lot of audio
-- Implement fallback for CUDA not available, use a small model for CPU inference
 - Maybe, use some AGC to normalize the audio
 - Handle better the errors of audio ingestion, when i remove the main speaker pollutes the log with infinite errors
 - Improve the vetorial metadata for diarization, add the speaker id to the metadata, that translates to a speaker label in the UI and the speaker name in the RAG. Do this in a way that i can update the speaker id when i clusterize the speakers in the AHC

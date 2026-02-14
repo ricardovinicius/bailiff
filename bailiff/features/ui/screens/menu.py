@@ -21,6 +21,12 @@ ASCII_TITLE = """\
                                                   """
 
 class MenuScreen(Screen):
+    """
+    The main menu screen of the application.
+
+    Provides navigation to start new meetings, list past meetings, or exit the app.
+    Also performs initial system checks for audio devices (microphone and loopback).
+    """
     CSS = """
     MenuScreen {
         align: center middle;

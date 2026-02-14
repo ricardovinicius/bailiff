@@ -8,6 +8,12 @@ from bailiff.core.db import SessionLocal
 from bailiff.features.memory.storage import MeetingStorage
 
 class ListMeetingsScreen(Screen):
+    """
+    Screen for listing past meeting sessions.
+
+    Fetches session data from the database and displays it in a selectable table.
+    Selecting a row navigates to the TranscriptionScreen for that session.
+    """
     CSS = """
     ListMeetingsScreen {
         align: center middle;

@@ -20,6 +20,12 @@ logger = logging.getLogger("bailiff.audio.service")
 
 
 class AudioIngestService:
+    """
+    Service for capturing and preprocessing audio from microphone and system loopback.
+
+    Manages concurrent capture threads, performs VAD (Voice Activity Detection), and queues
+    valid speech chunks for downstream processing.
+    """
     def __init__(self, 
                  output_queue: ProcessQueue, 
                  config: AudioConfig, 
@@ -250,6 +256,9 @@ def run_ingest_service(output_queue: ProcessQueue, config: AudioConfig, log_file
     service.run()
     
 if __name__ == "__main__":
+    """
+    Example usage of the ingest service.
+    """
     setup_logging()
 
     audio_queue = ProcessQueue()

@@ -6,6 +6,12 @@ logger = logging.getLogger("bailiff.audio.capture")
 
 
 class AudioCaptureManager:
+    """
+    Manages audio input devices and streams.
+
+    Handles discovery of microphones and loopback devices (system audio), and provides methods
+    to open PyAudio streams for capturing audio data.
+    """
     def __init__(self):
         self.pa = pyaudio.PyAudio()
         logger.info("PyAudio initialized")

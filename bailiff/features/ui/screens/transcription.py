@@ -14,6 +14,12 @@ from bailiff.features.analysis.digestion import Digester
 from bailiff.features.analysis.summarization import Summarizer
 
 class TranscriptionScreen(Screen):
+    """
+    Screen for viewing and exporting a completed meeting transcript.
+
+    Displays the transcript history for a specific session and provides options to
+    export raw data, generate digests, or create summaries using LLMs.
+    """
     CSS = """
     TranscriptionScreen {
         align: center middle;

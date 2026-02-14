@@ -12,6 +12,12 @@ logger = logging.getLogger("bailiff.transcription.service")
 # TODO: Add a hallucination detection mechanism to avoid non-sense transcriptions, such as "Subtitles by "
 
 class TranscriptionService:
+    """
+    Background service for audio transcription.
+
+    Consumes audio chunks from the input queue, transcribes them using the WhisperEngine,
+    and pushes the resulting text segments to the output queue.
+    """
     def __init__(self, 
                  input_queue: ProcessQueue, 
                  output_queue: ProcessQueue, 

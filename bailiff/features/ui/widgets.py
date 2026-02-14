@@ -5,6 +5,11 @@ from bailiff.core.events import TranscriptionSegment
 
 
 class TranscriptItem(Static):
+    """
+    A widget representing a single item in the transcript view.
+
+    Can display either a transcription segment (with timestamps and speaker) or a Q&A exchange.
+    """
     def __init__(self, content: TranscriptionSegment | str, role: str = "user", **kwargs):
         if isinstance(content, TranscriptionSegment):
             self.segment = content

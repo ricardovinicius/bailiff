@@ -9,6 +9,12 @@ logger = logging.getLogger("bailiff.memory.vector_db")
 # TODO: Improve the search, to avoid duplication of context, giving more variability.
 
 class VectorMemory:
+    """
+    Manages semantic storage and retrieval using ChromaDB.
+    
+    Handles embedding and storage of transcript segments for vector-based similarity search.
+    Maintains a rolling context window to cluster short segments before embedding.
+    """
     MAX_SEGMENT_LENGTH = 500  # max characters per segment in the context window
 
     def __init__(self, persist_path: str = "./chromadb"):

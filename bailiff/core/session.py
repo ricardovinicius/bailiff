@@ -16,6 +16,9 @@ from bailiff.core.config import AudioConfig
 logger = logging.getLogger("bailiff.core.session")
 
 class SessionManager:
+    """
+    Manages the lifecycle of a recording session, including background processes and data flow.
+    """
     def __init__(self, log_file="bailiff.log"):
         self.log_file = log_file
         

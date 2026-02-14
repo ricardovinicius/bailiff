@@ -1,9 +1,7 @@
 import logging
-import os
 import numpy as np
 from multiprocessing.queues import Queue as ProcessQueue
 import torch
-import torchaudio
 from speechbrain.pretrained import EncoderClassifier
 
 from bailiff.core.events import DiarizationResult, AudioChunk
@@ -15,7 +13,7 @@ class DiarizationEngine:
     Speaker diarization via SpeechBrain ECAPA-TDNN Speaker Embedding.
     
     Receives AudioChunk objects from `audio_queue`, extracts embeddings,
-    clusters them using a simple leader-follower algorithm with cosine similarity, 
+    clusters them using a simple algorithm with cosine similarity, 
     and pushes DiarizationResult objects to `output_queue`.
     """
 
@@ -72,29 +70,26 @@ class DiarizationEngine:
         return embeddings.squeeze().cpu().numpy()
 
     def identify(self, audio_chunk: AudioChunk) -> str:
-        # 1. Extração de Embedding (Baseado em Pytorch/SpeechBrain)
+        """
+        Identifies the speaker in the given audio chunk.
+        """
         emb = self._compute_embedding(audio_chunk)
         if emb is None: 
             return "unknown"
         
-        # Normalização (Crucial para Cosine Similarity)
-        # SpeechBrain embeddings are usually already normalized, but good to ensure
         norm = np.linalg.norm(emb)
         if norm > 0:
             emb = emb / norm
         else:
             return "unknown"
 
-        # 2. Algoritmo Leader-Follower com Inércia Temporal
         best_speaker = None
         max_similarity = -1.0
 
         for spk_id, data in self.speakers.items():
-            # Similaridade de Cosseno com o CENTROIDE do speaker
             centroid = data['embedding']
-            sim = np.dot(emb, centroid) # Dot product de vetores normalizados = cosine sim
+            sim = np.dot(emb, centroid)
             
-            # Aplica bônus de inércia para o último speaker ativo
             if spk_id == self.last_speaker:
                 sim += self.inertia_weight
             
@@ -102,13 +97,10 @@ class DiarizationEngine:
                 max_similarity = sim
                 best_speaker = spk_id
 
-        # 3. Decisão Inteligente
         if max_similarity > self.threshold:
-            # É um speaker conhecido! Atualize o perfil dele.
             count = self.speakers[best_speaker]['count']
             old_emb = self.speakers[best_speaker]['embedding']
             
-            # Média ponderada acumulativa
             new_emb = (old_emb * count + emb) / (count + 1)
             new_norm = np.linalg.norm(new_emb)
             if new_norm > 0:
@@ -122,7 +114,6 @@ class DiarizationEngine:
             return best_speaker
             
         else:
-            # É REALMENTE novo?
             new_name = f"Speaker {self.next_id}"
             self.speakers[new_name] = {
                 "count": 1,
@@ -151,7 +142,7 @@ class DiarizationEngine:
                 end_time=chunk.timestamp + chunk.duration
             )
             
-            # logger.debug("Speaker %s [%.2f–%.2f]", speaker, result.start_time, result.end_time) # Reduced verbosity
+            logger.debug("Speaker %s [%.2f–%.2f]", speaker, result.start_time, result.end_time) 
             self.output_queue.put(result)
 
         logger.info("Diarization engine finished")

@@ -4,6 +4,13 @@ from bailiff.features.assistant.llm import LLMClient
 # TODO: Add support for export in JSON schema
 
 class Summarizer:
+    """
+    Generates structured meeting minutes from digested transcripts using an LLM.
+
+    This class constructs prompt to instruct the LLM to extract key information such as
+    executive summaries, decisions, action items, and key topics from the meeting text.
+    """
+
     SUMMARIZATION_PROMPT = """
     You are an Elite Executive Assistant specializing in technical and business strategy.
     Your goal is to synthesize meeting transcripts into concise, professional, and actionable Meeting Minutes.
@@ -53,6 +60,9 @@ class Summarizer:
         self.llm = llm
 
     def summarize(self, digested_transcript: str) -> str:
+        """
+        Summarizes the digested transcript.
+        """
         messages = [
             {"role": "system", "content": self.SUMMARIZATION_PROMPT},
             {"role": "user", "content": self.USER_PROMPT.format(transcript_text=digested_transcript)}

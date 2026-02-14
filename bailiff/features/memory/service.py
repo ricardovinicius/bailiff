@@ -10,6 +10,12 @@ from bailiff.core.events import SearchRequest, TranscriptionSegment
 logger = logging.getLogger("bailiff.memory.service")
 
 class MemoryService:
+    """
+    Orchestrates the storage and retrieval of meeting data.
+
+    Coordinates saving transcripts to SQL (persistent storage) and VectorDB (semantic search),
+    and handles search requests from the assistant.
+    """
     def __init__(self, input_queue: ProcessQueue, rag_queue: ProcessQueue, session_id: int):
         self.input_queue = input_queue
         self.rag_queue = rag_queue

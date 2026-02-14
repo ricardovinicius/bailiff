@@ -35,6 +35,9 @@ class SearchRequest:
 
 @dataclass
 class DiarizationResult:
+    """
+    Result of a diarization process for a specific audio segment.
+    """
     speaker: str
     start_time: float
     end_time: float

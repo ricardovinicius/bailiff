@@ -9,6 +9,11 @@ from bailiff.core.events import TranscriptionSegment
 logger = logging.getLogger("bailiff.storage")
 
 class MeetingStorage:
+    """
+    Data access layer for SQL storage of meeting sessions and transcripts.
+
+    Provides methods to create sessions, save transcript segments, and retrieve history.
+    """
     def __init__(self, db: Session):
         self.db = db
         init_db()  # Ensure tables exist
@@ -29,7 +34,9 @@ class MeetingStorage:
         return session
 
     def save_transcript(self, session_id: int, segment: TranscriptionSegment) -> Transcripts:
-        """Save a transcription segment to the database."""
+        """
+        Save a transcription segment to the database.
+        """
         transcript = Transcripts(
             session_id=session_id,
             text=segment.text,

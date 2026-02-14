@@ -20,6 +20,12 @@ setup_logging(log_file=settings.app.log_file)
 logger = logging.getLogger("bailiff.ui.screens.execution")
 
 class ExecutionScreen(Screen):
+    """
+    Screen for the active meeting execution view.
+
+    Displays real-time transcription, handles user input for Q&A, and manages the
+    underlying SessionManager to coordinate background services (audio, transcription, etc.).
+    """
     # TODO: Move this CSS to a separate file
     CSS = """
     Screen {

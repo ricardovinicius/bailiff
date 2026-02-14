@@ -5,11 +5,17 @@ from dataclasses import dataclass
 from pydantic_settings import BaseSettings
 
 class AppConfig(BaseSettings):
+    """
+    Configuration for general application settings.
+    """
     log_file: str = "bailiff.log"
     log_level: str = "INFO"
     data_dir: str = "data"
 
 class AudioConfig(BaseSettings):
+    """
+    Configuration for audio processing and ingestion.
+    """
     sample_rate: int = 16000
     chunk_size: int = 512
     vad_threshold: float = 0.5
@@ -17,6 +23,9 @@ class AudioConfig(BaseSettings):
     speech_pad_ms: int = 200 # ms
 
 class ModelsConfig(BaseSettings):
+    """
+    Configuration for AI models (LLMs, embeddings, etc.).
+    """
     llm_provider: str = "ollama"
     llm_base_url: str = "http://localhost:11434/v1"
     llm_api_key: Optional[SecretStr] = Field(default=None)
@@ -26,12 +35,18 @@ class ModelsConfig(BaseSettings):
     voice_embedding: str = "speechbrain/spkrec-ecapa-voxceleb"
 
 class DiarizationConfig(BaseSettings):
+    """
+    Configuration for speaker diarization.
+    """
     threshold: float = 0.5
     inertia_weight: float = 0.1
     merge_timeout: float = 8.0
     segment_timeout: float = 3.0
 
 class TranscriptionConfig(BaseSettings):
+    """
+    Configuration for audio transcription.
+    """
     model_size: str = "deepdml/faster-whisper-large-v3-turbo-ct2"
     device: str = "cuda"
     compute_type: str = "float16"
@@ -39,6 +54,9 @@ class TranscriptionConfig(BaseSettings):
 from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, YamlConfigSettingsSource
 
 class Settings(BaseSettings):
+    """
+    Global application settings, aggregating all module configurations.
+    """
     app: AppConfig
     audio: AudioConfig
     models: ModelsConfig

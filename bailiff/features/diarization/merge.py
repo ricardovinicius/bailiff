@@ -11,6 +11,13 @@ from bailiff.core.events import DiarizationResult
 logger = logging.getLogger("bailiff.features.diarization.merge")
 
 class MergeService:
+    """
+    Merges transcription segments with diarization results.
+
+    Aligns text from the transcription queue with speaker labels from the diarization queue
+    based on timestamps. Handles latency differences by buffering and waiting for matching
+    events within a configurable timeout.
+    """
     def __init__(self, tx_queue, diar_queue, output_queue, merge_timeout=8.0, segment_timeout=3.0):
         self.tx_queue = tx_queue
         self.diar_queue = diar_queue

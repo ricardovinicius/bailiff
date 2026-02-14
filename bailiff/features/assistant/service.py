@@ -15,6 +15,12 @@ logger = logging.getLogger("bailiff.assistant.service")
 # like "what did I just say?" or "what was the last thing I said?"
 
 class AssistantService:
+    """
+    Background service that handles user questions using RAG and LLM.
+
+    This service listens for questions on the question queue, retrieves relevant context using the
+    RAG engine (communicating with MemoryService), and produces answers via the LLM.
+    """
     def __init__(self, 
         question_queue: ProcessQueue,
         answer_queue: ProcessQueue,
@@ -32,6 +38,9 @@ class AssistantService:
         self.session_id = str(session_id) 
     
     def run(self):
+        """
+        Runs the assistant service.
+        """
         from bailiff.core.config import settings
         
         api_key = settings.models.llm_api_key.get_secret_value() if settings.models.llm_api_key else None

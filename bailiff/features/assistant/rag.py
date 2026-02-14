@@ -7,6 +7,13 @@ from bailiff.core.events import SearchRequest
 logger = logging.getLogger("bailiff.assistant.rag")
 
 class RagEngine:
+    """
+    Implements Retrieval-Augmented Generation (RAG) for answering questions based on meeting context.
+
+    This engine coordinates the search for relevant information in the vector database (via MemoryService)
+    and constructs prompts for the LLM to generate grounded answers.
+    """
+    
     def __init__(self, llm: LLMClient, memory_queue: ProcessQueue, rag_queue: ProcessQueue):
         self.llm = llm
         self.memory_queue = memory_queue

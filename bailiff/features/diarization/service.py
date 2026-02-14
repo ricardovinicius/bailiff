@@ -9,6 +9,11 @@ logger = logging.getLogger("bailiff.features.diarization.service")
 
 
 class DiarizationService:
+    """
+    Service wrapper for running the DiarizationEngine.
+
+    Initialize and runs the diarization engine in a separate process.
+    """
     def __init__(self, 
                  input_queue: ProcessQueue, 
                  output_queue: ProcessQueue,

@@ -8,6 +8,11 @@ logger = logging.getLogger("bailiff.transcription.engine")
 from bailiff.core.config import settings
 
 class WhisperEngine:
+    """
+    Wrapper for the Faster-Whisper transcription model.
+
+    Loads the specified Whisper model and provides a method to transcribe audio chunks.
+    """
     def __init__(self, 
                 model_size: str = settings.transcription.model_size, 
                 device: str = settings.transcription.device,
@@ -21,6 +26,9 @@ class WhisperEngine:
         self.model = None
 
     def load(self):
+        """
+        Load the Whisper model.
+        """
         self.model = WhisperModel(
             self.model_size,
             device=self.device,
@@ -29,6 +37,9 @@ class WhisperEngine:
         logger.info("Whisper model loaded: %s", self.model_size)
 
     def transcribe(self, audio: np.ndarray) -> str:
+        """
+        Transcribe the given audio.
+        """
         if self.model is None:
             raise RuntimeError("Whisper model not loaded. Call load() first.")
 

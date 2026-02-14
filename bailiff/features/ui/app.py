@@ -4,6 +4,11 @@ from bailiff.features.ui.screens.menu import MenuScreen
 from bailiff.core.config import settings
 
 class BailiffApp(App):
+    """
+    Main entry point for the Bailiff TUI application.
+
+    Manages the application lifecycle and initial screen loading.
+    """
     CSS_PATH = None # or path to global css if valid
 
     def on_mount(self):

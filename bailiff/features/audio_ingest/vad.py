@@ -7,6 +7,11 @@ logger = logging.getLogger("bailiff.audio.vad")
 
 
 class VADEngine:
+    """
+    Voice Activity Detection (VAD) engine using Silero VAD.
+
+    Detects speech in audio chunks to filter out silence and background noise.
+    """
     def __init__(self, model_name: str = "snakers4/silero-vad", 
                  threshold: float = 0.6, 
                  sample_rate: int = 16000):

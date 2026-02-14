@@ -4,6 +4,9 @@ from sqlalchemy.orm import relationship, declarative_base
 Base = declarative_base()
 
 class Sessions(Base):
+    """
+    SQLAlchemy model representing a meeting session.
+    """
     __tablename__ = "sessions"
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -16,6 +19,9 @@ class Sessions(Base):
         return f"<Session(id={self.id}, name='{self.name}')>"
 
 class Transcripts(Base):
+    """
+    SQLAlchemy model representing a specific segment of transcription.
+    """
     __tablename__ = "transcripts"
     id = Column(Integer, primary_key=True)
     session_id = Column(Integer, ForeignKey("sessions.id"))
