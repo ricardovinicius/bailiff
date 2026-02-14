@@ -28,7 +28,7 @@ class ModelsConfig(BaseSettings):
     """
     llm_provider: str = "ollama"
     llm_base_url: str = "http://localhost:11434/v1"
-    llm_api_key: Optional[SecretStr] = Field(default=None)
+    llm_api_key: Optional[SecretStr] = Field(default="dummy")
     llm_assistant: str = "llama-3.1-8b-instant"
     llm_digestion: str = "llama-3.3-70b-versatile"
     llm_summary: str = "llama-3.1-70b-versatile"
