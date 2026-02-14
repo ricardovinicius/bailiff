@@ -13,8 +13,8 @@ from bailiff.core.config import AudioConfig
 from bailiff.core.events import AudioChunk
 from bailiff.core.logging import setup_logging
 from bailiff.features.audio_ingest.capture import AudioCaptureManager
-from bailiff.features.audio_ingest.vad import VADEngine
 from bailiff.features.audio_ingest.preprocessor import AudioPreprocessor
+from bailiff.features.audio_ingest.vad import VADEngine
 
 logger = logging.getLogger("bailiff.audio.service")
 

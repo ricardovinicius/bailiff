@@ -1,7 +1,7 @@
 from textual.app import App
-from bailiff.features.ui.screens.menu import MenuScreen
 
 from bailiff.core.config import settings
+from bailiff.features.ui.screens.menu import MenuScreen
 
 class BailiffApp(App):
     """

@@ -10,3 +10,4 @@
 - Is a known bug the prints of libraries warnings over the TUI
 - Add support for linux, with dynamic support of pyaudiowpatch
 - Update README.md with roadmap and screenshots
+- Add unit tests

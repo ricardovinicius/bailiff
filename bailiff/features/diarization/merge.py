@@ -1,9 +1,8 @@
-from bailiff.core.events import TranscriptionSegment
 import logging
 import queue
 import time
 
-from bailiff.core.events import DiarizationResult
+from bailiff.core.events import DiarizationResult, TranscriptionSegment
 
 
 # TODO: Add support for labeling speakers

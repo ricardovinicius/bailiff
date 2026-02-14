@@ -1,5 +1,6 @@
 import logging
 import sys
+
 from textual.logging import TextualHandler
 
 def setup_logging(level: int = logging.DEBUG, log_file: str | None = None) -> None:

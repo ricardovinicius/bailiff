@@ -1,11 +1,11 @@
-from bailiff.features.ui.screens.transcription import TranscriptionScreen
-from textual.screen import Screen
 from textual.app import ComposeResult
-from textual.widgets import Header, Footer, DataTable, Button
 from textual.containers import Container, Vertical
+from textual.screen import Screen
+from textual.widgets import Button, DataTable, Footer, Header
 
 from bailiff.core.db import SessionLocal
 from bailiff.features.memory.storage import MeetingStorage
+from bailiff.features.ui.screens.transcription import TranscriptionScreen
 
 class ListMeetingsScreen(Screen):
     """

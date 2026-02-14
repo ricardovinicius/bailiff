@@ -1,11 +1,12 @@
-from bailiff.core.logging import setup_logging
-from multiprocessing.queues import Queue as ProcessQueue
 import logging
+from multiprocessing.queues import Queue as ProcessQueue
 from typing import Callable
-from bailiff.features.memory.storage import MeetingStorage
-from bailiff.features.memory.vector_db import VectorMemory
+
 from bailiff.core.db import SessionLocal
 from bailiff.core.events import SearchRequest, TranscriptionSegment
+from bailiff.core.logging import setup_logging
+from bailiff.features.memory.storage import MeetingStorage
+from bailiff.features.memory.vector_db import VectorMemory
 
 logger = logging.getLogger("bailiff.memory.service")
 

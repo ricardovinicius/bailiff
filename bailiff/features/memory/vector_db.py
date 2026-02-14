@@ -1,8 +1,10 @@
-from collections import deque
 import logging
-from bailiff.core.events import TranscriptionSegment
+from collections import deque
+
 import chromadb
-from chromadb.utils import embedding_functions 
+from chromadb.utils import embedding_functions
+
+from bailiff.core.events import TranscriptionSegment 
 
 logger = logging.getLogger("bailiff.memory.vector_db")
 

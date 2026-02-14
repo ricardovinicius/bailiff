@@ -1,7 +1,7 @@
-from bailiff.features.assistant.llm import LLMClientSettings
+import logging
+
 from bailiff.features.assistant.llm import LLMClient
 from bailiff.features.memory.storage import MeetingStorage
-import logging
 
 logger = logging.getLogger("bailiff.features.analysis.digester")
 

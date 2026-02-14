@@ -1,11 +1,12 @@
+from textual import work
+from textual.app import ComposeResult
+from textual.containers import Container, Horizontal, Vertical
+from textual.screen import Screen
+from textual.widgets import Button, Footer, Header, Label, Static
+
 from bailiff.features.audio_ingest.capture import AudioCaptureManager
 from bailiff.features.ui.screens.execution import ExecutionScreen
 from bailiff.features.ui.screens.list_meetings import ListMeetingsScreen
-from textual.screen import Screen
-from textual.app import ComposeResult
-from textual.widgets import Header, Footer, Button, Static, Label
-from textual.containers import Container, Vertical, Horizontal
-from textual import work
 
 # Define the art here
 ASCII_TITLE = """\

@@ -1,12 +1,12 @@
-from bailiff.features.assistant.llm import LLMClientSettings
-from bailiff.core.logging import setup_logging
 import logging
 import os
 from multiprocessing.queues import Queue as ProcessQueue
+
 from dotenv import load_dotenv
 
+from bailiff.core.logging import setup_logging
+from bailiff.features.assistant.llm import LLMClient, LLMClientSettings
 from bailiff.features.assistant.rag import RagEngine
-from bailiff.features.assistant.llm import LLMClient
 from bailiff.features.memory.vector_db import VectorMemory
 
 logger = logging.getLogger("bailiff.assistant.service")

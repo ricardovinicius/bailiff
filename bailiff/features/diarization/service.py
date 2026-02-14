@@ -1,9 +1,9 @@
 import logging
-from typing import Callable
 from multiprocessing import Queue as ProcessQueue
+from typing import Callable
 
-from bailiff.features.diarization.engine import DiarizationEngine
 from bailiff.core.logging import setup_logging
+from bailiff.features.diarization.engine import DiarizationEngine
 
 logger = logging.getLogger("bailiff.features.diarization.service")
 

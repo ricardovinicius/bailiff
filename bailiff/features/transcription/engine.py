@@ -1,11 +1,11 @@
 import logging
-import numpy as np
 
+import numpy as np
 from faster_whisper import WhisperModel
 
-logger = logging.getLogger("bailiff.transcription.engine")
-
 from bailiff.core.config import settings
+
+logger = logging.getLogger("bailiff.transcription.engine")
 
 class WhisperEngine:
     """

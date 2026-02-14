@@ -1,10 +1,11 @@
 import logging
-import numpy as np
 from multiprocessing.queues import Queue as ProcessQueue
+
+import numpy as np
 import torch
 from speechbrain.pretrained import EncoderClassifier
 
-from bailiff.core.events import DiarizationResult, AudioChunk
+from bailiff.core.events import AudioChunk, DiarizationResult
 
 logger = logging.getLogger("bailiff.features.diarization.engine")
 

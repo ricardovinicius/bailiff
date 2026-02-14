@@ -1,8 +1,11 @@
-from pydantic import Field
 from typing import Optional
-from pydantic import SecretStr
-from dataclasses import dataclass
-from pydantic_settings import BaseSettings
+
+from pydantic import Field, SecretStr
+from pydantic_settings import (
+    BaseSettings,
+    PydanticBaseSettingsSource,
+    YamlConfigSettingsSource,
+)
 
 class AppConfig(BaseSettings):
     """
@@ -51,7 +54,6 @@ class TranscriptionConfig(BaseSettings):
     device: str = "cuda"
     compute_type: str = "float16"
 
-from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, YamlConfigSettingsSource
 
 class Settings(BaseSettings):
     """

@@ -1,17 +1,16 @@
-from textual.screen import Screen
 from textual.app import ComposeResult
-from textual.widgets import Header, Footer, Label, Button
-from textual.containers import Container, VerticalScroll, Horizontal
+from textual.containers import Container, Horizontal, VerticalScroll
+from textual.screen import Screen
+from textual.widgets import Button, Footer, Header, Label
 
-from bailiff.core.events import TranscriptionSegment
 from bailiff.core.db import SessionLocal
+from bailiff.core.events import TranscriptionSegment
+from bailiff.features.analysis.digestion import Digester
+from bailiff.features.analysis.exporter import Exporter
+from bailiff.features.analysis.summarization import Summarizer
+from bailiff.features.assistant.llm import LLMClient, LLMClientSettings
 from bailiff.features.memory.storage import MeetingStorage
 from bailiff.features.ui.widgets import TranscriptItem
-from bailiff.features.analysis.exporter import Exporter
-from bailiff.features.assistant.llm import LLMClient, LLMClientSettings
-from bailiff.features.analysis.digestion import Digester
-
-from bailiff.features.analysis.summarization import Summarizer
 
 class TranscriptionScreen(Screen):
     """

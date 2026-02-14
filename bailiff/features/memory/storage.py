@@ -1,10 +1,11 @@
 import logging
 from datetime import datetime
+
 from sqlalchemy.orm import Session
 
 from bailiff.core.db import init_db
-from bailiff.features.memory.models import Sessions, Transcripts
 from bailiff.core.events import TranscriptionSegment
+from bailiff.features.memory.models import Sessions, Transcripts
 
 logger = logging.getLogger("bailiff.storage")
 

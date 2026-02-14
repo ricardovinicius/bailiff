@@ -1,17 +1,17 @@
+import logging
 import multiprocessing
 import queue
 import threading
-import logging
 
-from bailiff.features.audio_ingest.service import run_ingest_service
-from bailiff.features.transcription.service import run_transcription_service
-from bailiff.features.diarization.service import run_diarization_service
-from bailiff.features.diarization.merge import run_merge_service
-from bailiff.features.memory.service import run_memory_service
-from bailiff.features.assistant.service import run_assistant_service
-from bailiff.features.memory.storage import MeetingStorage
-from bailiff.core.db import SessionLocal
 from bailiff.core.config import AudioConfig
+from bailiff.core.db import SessionLocal
+from bailiff.features.assistant.service import run_assistant_service
+from bailiff.features.audio_ingest.service import run_ingest_service
+from bailiff.features.diarization.merge import run_merge_service
+from bailiff.features.diarization.service import run_diarization_service
+from bailiff.features.memory.service import run_memory_service
+from bailiff.features.memory.storage import MeetingStorage
+from bailiff.features.transcription.service import run_transcription_service
 
 logger = logging.getLogger("bailiff.core.session")
 

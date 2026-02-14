@@ -1,11 +1,10 @@
-from bailiff.core.events import TranscriptionSegment
-import time
 import logging
-from typing import Callable
+import time
 from multiprocessing import Process, Queue as ProcessQueue
+from typing import Callable
 
+from bailiff.core.events import AudioChunk, TranscriptionSegment
 from bailiff.features.transcription.engine import WhisperEngine
-from bailiff.core.events import AudioChunk
 
 logger = logging.getLogger("bailiff.transcription.service")
 

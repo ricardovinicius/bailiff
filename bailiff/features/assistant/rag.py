@@ -1,8 +1,8 @@
-from multiprocessing.queues import Queue as ProcessQueue
 import logging
+from multiprocessing.queues import Queue as ProcessQueue
 
-from bailiff.features.assistant.llm import LLMClient
 from bailiff.core.events import SearchRequest
+from bailiff.features.assistant.llm import LLMClient
 
 logger = logging.getLogger("bailiff.assistant.rag")
 

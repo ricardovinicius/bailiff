@@ -1,13 +1,12 @@
-from bailiff.features.memory.models import Sessions
-from typing import Tuple
 import logging
 import os
+from typing import Tuple
 
 from bailiff.core.db import SessionLocal
-from bailiff.features.memory.storage import MeetingStorage
 from bailiff.features.analysis.digestion import Digester
-
 from bailiff.features.analysis.summarization import Summarizer
+from bailiff.features.memory.models import Sessions
+from bailiff.features.memory.storage import MeetingStorage
 
 logger = logging.getLogger("bailiff.features.analysis.exporter")
 

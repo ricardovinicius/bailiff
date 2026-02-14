@@ -1,16 +1,16 @@
-from textual.screen import Screen
 import logging
 import queue
 
 from textual.app import App, ComposeResult
-from textual.widgets import Footer, Header, Input, Button
-from textual.containers import Container, VerticalScroll, Horizontal
+from textual.containers import Container, Horizontal, VerticalScroll
+from textual.screen import Screen
+from textual.widgets import Button, Footer, Header, Input
 
-from bailiff.features.ui.widgets import TranscriptItem
+from bailiff.core.config import settings
 from bailiff.core.logging import setup_logging
 from bailiff.core.session import SessionManager
 from bailiff.features.ui.screens.transcription import TranscriptionScreen
-from bailiff.core.config import settings
+from bailiff.features.ui.widgets import TranscriptItem
 
 
 # TODO: Add VU meter

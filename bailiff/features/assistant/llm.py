@@ -1,8 +1,9 @@
-from bailiff.features.memory.models import Sessions
-from bailiff.features.memory.models import Transcripts
+import logging
+
 import instructor
 import openai
-import logging
+
+from bailiff.features.memory.models import Sessions, Transcripts
 
 logger = logging.getLogger("bailiff.features.assistant.llm")
 
