@@ -51,9 +51,9 @@ python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-3. **Install dependencies:**
+3. **Install the package:**
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
 
 4. **Install PyTorch with CUDA support** (Recommended for performance):
@@ -80,7 +80,7 @@ See `bailiff/core/config.py` for all available configuration options.
 To start the application:
 
 ```bash
-python -m bailiff.features.ui.app
+bailiff
 ```
 
 This will launch the TUI. You can start a new meeting, view transcriptions live, and ask questions to the assistant about the current conversation.
