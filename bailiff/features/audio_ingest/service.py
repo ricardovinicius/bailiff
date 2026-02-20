@@ -29,11 +29,13 @@ class AudioIngestService:
     def __init__(self, 
                  output_queue: ProcessQueue, 
                  config: AudioConfig, 
-                 vad_factory: Callable[[], VADEngine] = lambda: VADEngine(), 
+                 vad_factory: Callable[[], VADEngine] | None = None, 
                  device_provider: AudioCaptureManager | None = None):
         self.output_queue = output_queue
         self.config = config
-        self.vad_factory = vad_factory
+        self.vad_factory = vad_factory or (
+            lambda: VADEngine(threshold=config.vad_threshold, sample_rate=config.sample_rate)
+        )
         self.device_provider = device_provider or AudioCaptureManager()
 
         self._stop_event = threading.Event()

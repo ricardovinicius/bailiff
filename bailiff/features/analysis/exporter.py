@@ -2,7 +2,6 @@ import logging
 import os
 from typing import Tuple
 
-from bailiff.core.db import SessionLocal
 from bailiff.features.analysis.digestion import Digester
 from bailiff.features.analysis.summarization import Summarizer
 from bailiff.features.memory.models import Sessions

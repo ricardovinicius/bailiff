@@ -9,7 +9,6 @@ textual
 sqlalchemy
 chromadb
 instructor
-pydantic
 openai
 speechbrain
 pydantic
