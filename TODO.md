@@ -1,13 +1,13 @@
-- Give last messages to context of RAG
-- Add a feature to set the labels for speakers in the UI
-- Add a feature to set the language for transcription in the UI
-- Stop the application when a error occurs
-- Make the diarization engine with a hybrid approach, with offline refiniment, using the Agglomerative Hierarchical Clustering algorithm
-- I could also remove, or cluster the speakers that dont have a lot of audio
-- Maybe, use some AGC to normalize the audio
-- Handle better the errors of audio ingestion, when i remove the main speaker pollutes the log with infinite errors
-- Improve the vetorial metadata for diarization, add the speaker id to the metadata, that translates to a speaker label in the UI and the speaker name in the RAG. Do this in a way that i can update the speaker id when i clusterize the speakers in the AHC
-- Is a known bug the prints of libraries warnings over the TUI
-- Add support for linux, with dynamic support of pyaudiowpatch
-- Update README.md with roadmap and screenshots
-- Add unit tests
+[ ] Give last messages to context of RAG
+[ ] Add a feature to set the labels for speakers in the UI
+[ ] Add a feature to set the language for transcription in the UI
+[ ] Stop the application when a error occurs
+[ ] Make the diarization engine with a hybrid approach, with offline refiniment, using the Agglomerative Hierarchical Clustering algorithm
+[ ] I could also remove, or cluster the speakers that dont have a lot of audio
+[ ] Maybe, use some AGC to normalize the audio
+[ ] Handle better the errors of audio ingestion, when i remove the main speaker pollutes the log with infinite errors
+[ ] Improve the vetorial metadata for diarization, add the speaker id to the metadata, that translates to a speaker label in the UI and the speaker name in the RAG. Do this in a way that i can update the speaker id when i clusterize the speakers in the AHC
+[ ] Is a known bug the prints of libraries warnings over the TUI
+[ ] Add support for linux, with dynamic support of pyaudiowpatch
+[ ] Update README.md with roadmap and screenshots
+[ ] Add unit tests
