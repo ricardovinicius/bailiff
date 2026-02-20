@@ -10,9 +10,11 @@ class BailiffApp(App):
     Manages the application lifecycle and initial screen loading.
     """
     CSS_PATH = None # or path to global css if valid
+    THEME = "rose-pine-moon"
 
     def on_mount(self):
         self.push_screen(MenuScreen())
+        self.theme = self.THEME
 
     def on_unmount(self):
         # Ensure we cleanup if needed, though screens handle their own cleanup
