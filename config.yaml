@@ -6,7 +6,7 @@ app:
 audio:
   sample_rate: 16000 # Sample rate for audio processing
   chunk_size: 512 # Size of audio chunks
-  vad_threshold: 1.0 # Threshold for voice activity detection
+  vad_threshold: 0.5 # Threshold for voice activity detection
   silence_limit: 1.0 # Limit for silence duration
   speech_pad_ms: 200 # Padding for speech segments
 
