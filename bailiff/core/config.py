@@ -53,6 +53,7 @@ class TranscriptionConfig(BaseSettings):
     model_size: str = "deepdml/faster-whisper-large-v3-turbo-ct2"
     device: str = "cuda"
     compute_type: str = "float16"
+    language: Optional[str] = None
 
 
 class Settings(BaseSettings):

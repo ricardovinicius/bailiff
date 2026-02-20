@@ -17,7 +17,7 @@ class WhisperEngine:
                 model_size: str = settings.transcription.model_size, 
                 device: str = settings.transcription.device,
                 compute_type: str = settings.transcription.compute_type,
-                language: str | None = None,
+                language: str | None = settings.transcription.language,
                 ):
         self.model_size = model_size
         self.device = device
