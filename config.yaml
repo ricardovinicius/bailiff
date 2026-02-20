@@ -8,7 +8,6 @@ audio:
   chunk_size: 512 # Size of audio chunks
   vad_threshold: 0.5 # Threshold for voice activity detection
   silence_limit: 1.0 # Limit for silence duration
-  speech_pad_ms: 200 # Padding for speech segments
 
 models:
   llm_provider: "deepseek" 
@@ -28,3 +27,4 @@ transcription:
   model_size: "deepdml/faster-whisper-large-v3-turbo-ct2" # For GPU i recommend "deepdml/faster-whisper-large-v3-turbo-ct2" 
   device: "cuda" # For GPU i recommend "cuda" 
   compute_type: "float16" # For GPU i recommend "float16"
+  language: null # Set a language code (e.g. "pt", "en", "es") or leave null for auto-detect

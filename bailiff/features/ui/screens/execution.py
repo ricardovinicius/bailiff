@@ -1,7 +1,7 @@
 import logging
 import queue
 
-from textual.app import App, ComposeResult
+from textual.app import ComposeResult
 from textual.containers import Container, Horizontal, VerticalScroll
 from textual.screen import Screen
 from textual.widgets import Button, Footer, Header, Input
@@ -15,8 +15,6 @@ from bailiff.features.ui.widgets import TranscriptItem
 
 # TODO: Add VU meter
 
-# Configure main-process logging to file so it doesn't corrupt the TUI
-setup_logging(log_file=settings.app.log_file)
 logger = logging.getLogger("bailiff.ui.screens.execution")
 
 class ExecutionScreen(Screen):
@@ -71,6 +69,7 @@ class ExecutionScreen(Screen):
         """
         Initialize Backend and UI
         """
+        setup_logging(log_file=settings.app.log_file)
         self.session_manager = SessionManager(log_file=settings.app.log_file)
         self.session_manager.start()
 

@@ -33,4 +33,4 @@ class Transcripts(Base):
     session = relationship("Sessions", back_populates="transcripts")
 
     def __repr__(self):
-        return f"<Transcript(id={self.id}, text='{self.text[:20]}...')>"
+        return f"<Transcript(id={self.id}, text='{(self.text or '')[:20]}...')>"

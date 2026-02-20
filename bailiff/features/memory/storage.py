@@ -3,7 +3,7 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from bailiff.core.db import init_db
+
 from bailiff.core.events import TranscriptionSegment
 from bailiff.features.memory.models import Sessions, Transcripts
 
@@ -17,7 +17,6 @@ class MeetingStorage:
     """
     def __init__(self, db: Session):
         self.db = db
-        init_db()  # Ensure tables exist
 
     def create_session(self, name: str | None = None) -> Sessions:
         """Create a new meeting session."""

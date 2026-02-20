@@ -23,7 +23,6 @@ class AudioConfig(BaseSettings):
     chunk_size: int = 512
     vad_threshold: float = 0.5
     silence_limit: float = 1.0 # seconds
-    speech_pad_ms: int = 200 # ms
 
 class ModelsConfig(BaseSettings):
     """

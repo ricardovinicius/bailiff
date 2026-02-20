@@ -1,13 +1,10 @@
 import logging
-import os
+import queue
 from multiprocessing.queues import Queue as ProcessQueue
-
-from dotenv import load_dotenv
 
 from bailiff.core.logging import setup_logging
 from bailiff.features.assistant.llm import LLMClient, LLMClientSettings
 from bailiff.features.assistant.rag import RagEngine
-from bailiff.features.memory.vector_db import VectorMemory
 
 logger = logging.getLogger("bailiff.assistant.service")
 
@@ -71,14 +68,9 @@ class AssistantService:
                 answer = self.rag_engine.answer_question(question, session_id=self.session_id)
                 self.answer_queue.put(answer)
 
+            except queue.Empty:
+                continue
             except Exception as e:
-                # Handle queue empty if needed, though get(timeout=0.1) raises generic Empty? 
-                # multiprocessing.Queue raises queue.Empty. 
-                # We should import Empty to be precise, or just catch Exception for now as per previous pattern.
-                import queue
-                if isinstance(e, queue.Empty):
-                    continue
-                    
                 logger.error("Error answering question: %s", e)
                 continue
 

@@ -69,7 +69,10 @@ class Digester:
             raise ValueError(f"Session {session_id} not found!")
         
         transcripts = self.storage.get_transcripts(session_id)
-        
+
+        if not transcripts:
+            logger.warning(f"Session {session_id} has no transcripts to digest")
+            return ""
         logger.info(f"Digesting session {session.name}")
 
         raw_transcript_text = "\n".join([f"{t.speaker}: {t.text}" for t in transcripts])

@@ -61,10 +61,12 @@ class SessionManager:
                 chunk = self.q_audio_raw.get(timeout=0.5)
             except queue.Empty:
                 continue
+            if chunk is None:
+                self.q_audio_tx.put(None)
+                self.q_audio_diar.put(None)
+                break  # poison pill forwarded to both consumers
             self.q_audio_tx.put(chunk)
             self.q_audio_diar.put(chunk)
-            if chunk is None:
-                break  # poison pill forwarded to both consumers
 
     def start(self):
         """
@@ -128,6 +130,7 @@ class SessionManager:
         for p in self.processes:
             if p.is_alive():
                 p.terminate()
+                p.join(timeout=3)
                 
         # Close queues
         for q in [

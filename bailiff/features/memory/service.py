@@ -1,4 +1,5 @@
 import logging
+import queue
 from multiprocessing.queues import Queue as ProcessQueue
 from typing import Callable
 
@@ -56,11 +57,9 @@ class MemoryService:
                     else:
                         logger.warning(f"Unknown item type received in MemoryService: {type(item)}")
 
+                except queue.Empty:
+                    continue
                 except Exception as e:
-                    import queue
-                    if isinstance(e, queue.Empty):
-                        continue
-                        
                     logger.error("Error saving transcription to memory: %s", e)
                     continue
         finally:

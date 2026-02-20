@@ -1,5 +1,4 @@
 import logging
-import sys
 
 from textual.logging import TextualHandler
 

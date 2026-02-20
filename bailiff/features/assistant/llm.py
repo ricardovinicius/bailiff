@@ -3,8 +3,6 @@ import logging
 import instructor
 import openai
 
-from bailiff.features.memory.models import Sessions, Transcripts
-
 logger = logging.getLogger("bailiff.features.assistant.llm")
 
 class LLMClientSettings:

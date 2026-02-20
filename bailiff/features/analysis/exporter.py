@@ -10,7 +10,7 @@ from bailiff.features.memory.storage import MeetingStorage
 
 logger = logging.getLogger("bailiff.features.analysis.exporter")
 
-# FIXME: bug with empty transcription crashes the export
+
 
 class Exporter:
     """
@@ -139,6 +139,8 @@ class Exporter:
         Exports the raw transcript, the digested transcript and the summary to markdown files.
         """
         raw_file = self.raw_export()
+        if raw_file is None:
+            return None, None, None
         digest_file = self.digest_export()
         summary_file = self.summary_export()
         return raw_file, digest_file, summary_file
