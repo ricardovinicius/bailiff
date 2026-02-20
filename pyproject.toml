@@ -5,4 +5,30 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "bailiff"
 version = "0.1.0"
+description = "AI-powered meeting assistant with real-time transcription and diarization"
 requires-python = ">=3.10"
+dependencies = [
+    "pyaudiowpatch",
+    "numpy",
+    "scipy",
+    "torch",
+    "torchaudio<2.9",
+    "packaging",
+    "faster-whisper",
+    "textual",
+    "sqlalchemy",
+    "chromadb",
+    "instructor",
+    "openai",
+    "speechbrain",
+    "pydantic",
+    "pydantic-settings",
+    "pyyaml",
+    "huggingface_hub<0.25.0",
+]
+
+[project.scripts]
+bailiff = "bailiff.main:main"
+
+[tool.setuptools.packages.find]
+include = ["bailiff*"]

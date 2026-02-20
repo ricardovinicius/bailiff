@@ -222,3 +222,6 @@ data/
 
 # Log files
 *.log
+
+# UV
+uv.lock

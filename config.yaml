@@ -10,11 +10,11 @@ audio:
   silence_limit: 1.0 # Limit for silence duration
 
 models:
-  llm_provider: "deepseek" 
-  llm_base_url: "https://api.deepseek.com/v1" # You can use any OpenAI compatible API
-  llm_assistant: "deepseek-chat"
-  llm_digestion: "deepseek-chat"
-  llm_summary: "deepseek-chat"
+  llm_provider: "ollama" 
+  llm_base_url: "http://localhost:11434/v1" # You can use any OpenAI compatible API
+  llm_assistant: "llama3.2"
+  llm_digestion: "llama3.2"
+  llm_summary: "llama3.2"
   voice_embedding: "speechbrain/spkrec-ecapa-voxceleb"
 
 diarization:
@@ -24,7 +24,7 @@ diarization:
   segment_timeout: 3.0 # Timeout for speaker segments
 
 transcription:
-  model_size: "deepdml/faster-whisper-large-v3-turbo-ct2" # For GPU i recommend "deepdml/faster-whisper-large-v3-turbo-ct2" 
-  device: "cuda" # For GPU i recommend "cuda" 
-  compute_type: "float16" # For GPU i recommend "float16"
-  language: null # Set a language code (e.g. "pt", "en", "es") or leave null for auto-detect
+  model_size: "small" # For GPU i recommend "deepdml/faster-whisper-large-v3-turbo-ct2" 
+  device: "cpu" # For GPU i recommend "cuda" 
+  compute_type: "int8" # For GPU i recommend "float16"
+  language: en # Set a language code (e.g. "pt", "en", "es") or leave null for auto-detect

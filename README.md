@@ -8,8 +8,7 @@
 ![License](https://img.shields.io/badge/License-MIT-purple)
 ![Status](https://img.shields.io/badge/Status-v0.1--alpha-orange)
 
-[ **[Insert GIF Here]** ]
-*(Place a GIF here showing the TUI updating in real-time with speaker colors)*
+![example](assets/bailiff.gif)
 
 </div>
 
@@ -97,7 +96,7 @@ Bailiff uses a multiprocessing pipeline architecture:
 -   **Merge**: Synchronizes transcription segments with speaker labels.
 -   **Memory/Assistant**: Indexes text for search and provides an AI interface.
 
-![alt text](assets/image.png)
+![architecture diagram](assets/architecture.png)
 
 ## Contributing
 
